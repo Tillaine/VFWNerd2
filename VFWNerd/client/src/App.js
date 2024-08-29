@@ -1,24 +1,41 @@
-import logo from './logo.svg';
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
+import axios from 'axios';
+import AllState from './AllState/AllState'
+import Button from '@mui/material/Button';
+import GlobalThemeOverride from './theme/GlobalThemeOverride';
 import './App.css';
 
-function App() {
+import Home from './Home/Home'
+import Trivia from './Trivia/Trivia'
+import Search from './Search/Search'
+
+const App = () => {
+  const [todos, setTodos] = useState([]);
+  useEffect(() => {
+    // Fetch data from the Express server
+    axios.get('http://localhost:5000/todos')
+      .then(response => setTodos(response.data))
+      .catch(error => console.error(error));
+  }, []);
+
+  
+console.log(todos)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <GlobalThemeOverride>
+        <Link to='/' ><Button>Home</Button></Link>
+        <Routes>
+          <Route path='/' element={<Home Items={todos}/>} />
+          <Route path='/AllState' element={<AllState/>} />
+          <Route path='/Search' element={<Search/>} />
+          <Route path='/Trivia' element={<Trivia/>} />
+        </Routes>
+        </GlobalThemeOverride>
+      </div>
+    </BrowserRouter>
   );
 }
 
