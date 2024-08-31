@@ -12,24 +12,26 @@ import Trivia from './Trivia/Trivia'
 import Search from './Search/Search'
 
 const App = () => {
-  const [todos, setTodos] = useState([]);
+  const [allStateItems, setAllStateItems] = useState([]);
   useEffect(() => {
     // Fetch data from the Express server
-    axios.get('http://localhost:5000/todos')
-      .then(response => setTodos(response.data))
+    axios.get('http://localhost:5000/allState')
+      .then(response => {
+        console.log({res: response.data})
+        setAllStateItems(response.data.data)})
       .catch(error => console.error(error));
   }, []);
 
   
-console.log(todos)
+console.log({allStateItems})
   return (
     <BrowserRouter>
       <div className="App">
         <GlobalThemeOverride>
         <Link to='/' ><Button>Home</Button></Link>
         <Routes>
-          <Route path='/' element={<Home Items={todos}/>} />
-          <Route path='/AllState' element={<AllState/>} />
+          <Route path='/' element={<Home/>} />
+          <Route path='/AllState' element={<AllState items={allStateItems} />} />
           <Route path='/Search' element={<Search/>} />
           <Route path='/Trivia' element={<Trivia/>} />
         </Routes>
