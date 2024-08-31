@@ -1,15 +1,26 @@
+const dotenv = require("dotenv")
+dotenv.config()
+const mongoKey = process.env.DB_KEY;
 const express = require('express');
-const mongoose = require('mongoose');
+const mongoose = require('mongoose'); 
+const uri = `mongodb+srv://brittanybartges:${mongoKey}@mernlist.zg7wekf.mongodb.net/?retryWrites=true&w=majority&appName=mernList`;
 const cors = require('cors');
 const data = require('./mockData')
+console.log('&&&&&&$$$$$', mongoKey)
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
-// Connect to MongoDB
-// mongoose.connect('mongodb://localhost/mern-stack-db', { useNewUrlParser: true, useUnifiedTopology: true });
-// Define routes and middleware
+
+mongoose
+  .connect(  uri
+  )
+  .then(result => {
+    app.listen(3000);
+  })
+  .catch(err => console.log('err', err))
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
