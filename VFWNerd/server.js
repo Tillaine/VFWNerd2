@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const uri = `mongodb+srv://brittanybartges:${mongoKey}@mernlist.zg7wekf.mongodb.net/?retryWrites=true&w=majority&appName=mernList`;
 const cors = require('cors');
 const data = require('./mockData')
-console.log('&&&&&&$$$$$', mongoKey)
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
