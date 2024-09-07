@@ -17,13 +17,11 @@ const App = () => {
     // Fetch data from the Express server
     axios.get('http://localhost:5000/allState')
       .then(response => {
-        console.log({res: response.data})
         setAllStateItems(response.data.data)})
       .catch(error => console.error(error));
   }, []);
 
   
-console.log({allStateItems})
   return (
     <BrowserRouter>
       <div className="App">
