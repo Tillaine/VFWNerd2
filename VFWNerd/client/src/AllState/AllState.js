@@ -5,7 +5,7 @@ import AllStateItem from './components/AllStateItem'
 const ListItems = ( {items} ) => items.map( item => <AllStateItem {...item}/>)
 
 const AllState = ({items}) => {
-  console.log(items)
+  console.log({items})
   return  items ? (
     <div className="App">
         <Box height='100%' bgcolor='primary.light'>
